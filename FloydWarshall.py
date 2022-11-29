@@ -1,6 +1,6 @@
-import numpy, csv
+import numpy as np, csv
 
-result = numpy.array(list(csv.reader(open("matrix.csv", "rb"), delimiter=";"))).astype("float")
+result = np.array(list(csv.reader(open("matrix.csv", "r"), delimiter=";"))).astype("float")
 print (result)
 
 def Floyd_Warshall (C : np.matrix ):
