@@ -3,7 +3,7 @@ import csv
 # import des modules nécessaires
 
 result = np.array(
-    list(csv.reader(open("LINFO1114_projet\matrix.csv", "r"), delimiter=";"))).astype("float")
+    list(csv.reader(open("matrix.csv", "r"), delimiter=";"))).astype("float")
 print(result)
 # ouverture et transformation du fichier.csv en matrice numpy
 

@@ -22,13 +22,19 @@ def bellman_ford(matrix, source):
       if matrix[u][v] is not None and distances[u] + matrix[u][v] < distances[v]:
         raise ValueError("Negative-weight cycle detected.")
 
-  return distances, predecessors
+  return distances
+
+def BellmanFordFinal(C : np.matrix):
+	finalMatrix = list()
+	for i in range(len(C)):
+		finalMatrix.append(bellman_ford(C,i))
+	return finalMatrix
 
 
 
 # Driver Code
 if __name__ == "__main__":
-	graph = np.array(list(csv.reader(open("LINFO1114_projet/matrix.csv", "r"), delimiter=";"))).astype("float")
+	C = np.array(list(csv.reader(open("matrix.csv", "r"), delimiter=";"))).astype("float")
 	
 	V = 5 # Number of vertices in graph
 	E = 8 # Number of edges in graph
@@ -40,4 +46,5 @@ if __name__ == "__main__":
 	#		[1, 3, 2], [1, 4, 2], [3, 2, 5],
 	#		[3, 1, 1], [4, 3, -3]]
 	#BellmanFord(graph, V, E, 0)
+	print(BellmanFordFinal(C))
 

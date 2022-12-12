@@ -1,7 +1,7 @@
 import numpy as np
 import csv
 G = np.array(list(csv.reader(
-    open("LINFO1114_projet\matrix.csv", "r"), delimiter=";"))).astype("float")
+    open("matrix.csv", "r"), delimiter=";"))).astype("float")
 print(G)
 Inf = 1.e+12
 
