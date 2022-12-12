@@ -1,26 +1,29 @@
 import numpy as np, csv
 from sys import maxsize 
 
-def bellman_ford(graph, source):
+def bellman_ford(matrix, source):
   # initialize the distances from the source vertex to all other vertices
   # as infinite and the predecessor of each vertex as None
-  distances = [float("inf")] * len(graph)
-  predecessors = [None] * len(graph)
+  distances = [float("inf")] * len(matrix)
+  predecessors = [None] * len(matrix)
   distances[source] = 0
 
   # relax the edges repeatedly
-  for i in range(len(graph) - 1):
-    for u, v, weight in graph.edges():
-      if distances[u] + weight < distances[v]:
-        distances[v] = distances[u] + weight
-        predecessors[v] = u
+  for i in range(len(matrix) - 1):
+    for u in range(len(matrix)):
+      for v in range(len(matrix)):
+        if matrix[u][v] is not None and distances[u] + matrix[u][v] < distances[v]:
+          distances[v] = distances[u] + matrix[u][v]
+          predecessors[v] = u
 
   # check for negative-weight cycles
-  for u, v, weight in graph.edges():
-    if distances[u] + weight < distances[v]:
-      raise ValueError("Negative-weight cycle detected.")
+  for u in range(len(matrix)):
+    for v in range(len(matrix)):
+      if matrix[u][v] is not None and distances[u] + matrix[u][v] < distances[v]:
+        raise ValueError("Negative-weight cycle detected.")
 
   return distances, predecessors
+
 
 
 # Driver Code
