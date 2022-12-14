@@ -1,14 +1,10 @@
 import numpy as np
-import csv
-G = np.array(list(csv.reader(
-    open("matrix.csv", "r"), delimiter=";"))).astype("float")
-print(G)
 Inf = 1.e+12
 
 
-def dijkstraDist(G, depart):
+def dijkstraDist(C, depart):
     # On récupère le nombre de sommets du graphe
-    N = np.size(G, 0)
+    N = np.size(C, 0)
 
     # Initialisation du tableau des plus courts chemins
     # Le booléen pour savoir si le sommet a déjà été sélectionné
@@ -32,7 +28,7 @@ def dijkstraDist(G, depart):
 
             # Si le sommet k n’a pas encore été sélectionné
             if pcc[k][1] == False:
-                dist_uv = G[sommet_u][k]
+                dist_uv = C[sommet_u][k]
                 # Distance totale du chemin s -> ... -> u -> v
                 dist_totale = dist_u + dist_uv
 
@@ -56,15 +52,12 @@ def dijkstraDist(G, depart):
     return (pcc)
 
 #fusion des lignes individuelles en matrice
-def dijkstra_matrix(matrix):
-    result = []
-    for i in range(len(matrix)):
+def Dijkstra(C: np.matrix):
+    result = list()
+    for i in range(len(C)):
         temp = []
-        dijk_line = dijkstraDist(matrix, i)
-        for j in range(len(matrix)):
+        dijk_line = dijkstraDist(C, i)
+        for j in range(len(C)):
             temp.append(int(dijk_line[j][0]))
         result.append(temp)
-    return result
-
-
-print(np.array(dijkstra_matrix(G)))
+    return np.array(result)
