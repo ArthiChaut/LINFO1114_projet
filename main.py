@@ -9,7 +9,7 @@ C = np.array(list(csv.reader(open("matrix.csv", "r"), delimiter=","))).astype("f
 
 #Lancement des algorithmes
 if __name__ == "__main__":
-    print(C)
-    print(Bellman_Ford(C))
-    print(Dijkstra(C))
-    print(Floyd_Warshall(C))
+    print("-------------------Matrice initiale------------------", C, sep="\n")
+    print("--------Matrice après Bellman-Ford--------", Bellman_Ford(C), sep="\n")
+    print("--------Matrice Dijkstra--------", Dijkstra(C), sep="\n")
+    print("----------Matrice Floyd-Warshall----------", Floyd_Warshall(C), sep="\n")
