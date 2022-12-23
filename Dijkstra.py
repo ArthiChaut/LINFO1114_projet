@@ -45,6 +45,6 @@ def Dijkstra(matrix):
         temp = []
         dijk_line = dijkstra_line(matrix, i)
         for j in range(len(matrix)):
-            temp.append(int(dijk_line[j][0]))
+            temp.append(float(dijk_line[j][0]))
         result.append(temp)
     return np.array(result)
