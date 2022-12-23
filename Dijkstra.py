@@ -1,54 +1,50 @@
 import numpy as np
 Inf = 1.e+12
 
-def dijkstraDist(C, depart):
-    # On récupère le nombre de sommets du graphe
-    N = np.size(C, 0)
-    # Initialisation du tableau des plus courts chemins
-    # Le booléen pour savoir si le sommet a déjà été sélectionné
-    pcc = list()
-    for i in range(N):
-        pcc.append([Inf, False])
-    sommet_u = depart
-    dist_u = 0
-    pcc[depart][0] = 0
-    # Le premier sommet sélectionné est le sommet depart
-    pcc[depart][1] = True
-    # On compte le nombre de sommets sélectionnés
-    cpt = 0
-    while cpt != N-1:
-        # À chaque étape, la solution optimale doit être conservée
-        # (pour sélection du sommet correspondant à l’étape suivante)
+#fonction qui permet de calculer toutes les distances à partir d'un noeud de départ
+def dijkstra(C, start):
+    #On récupère le nombres de noeuds
+    nbr_node = len(C[0])
+    result = []
+    #On crée une liste qui va contenir les distances les plus courtes du graphe
+    #Les bouléens vont permettre de savoir si on a déjà trouvé le chemin le plus court
+    for i in range(nbr_node):
+        result.append([Inf, False])
+    node = start
+    distance_start = 0
+    #On ajoute à la liste le noeuds de départ et on le met à True pour dire qu'il est sélèctionné
+    result[start][0] = 0
+    result[start][1] = True
+    
+    for j in range(nbr_node):
         minimum = Inf
-        # Étape de relâchement
-        for k in range(N):
-            # Si le sommet k n’a pas encore été sélectionné
-            if pcc[k][1] == False:
-                dist_uv = C[sommet_u][k]
-                # Distance totale du chemin s -> ... -> u -> v
-                dist_totale = dist_u + dist_uv
-                # Mise à jour du tableau des plus courts chemins
-                if dist_totale < pcc[k][0]:
-                    pcc[k][0] = dist_totale
-            # Mise à jour de la solution minimale à cette étape
-                if pcc[k][0] < minimum:
-                    minimum = pcc[k][0]
-                    prochain_sommet_select = k
-        # On a traité complétement un sommet
-        cpt = cpt + 1
-        # Le sommet à traiter est sélectionné et d[u] est mis à jour
-        sommet_u = prochain_sommet_select
-        pcc[sommet_u][1] = True
-        dist_u = pcc[sommet_u][0]
-    return (pcc)
+        #cette boucle va nous permettre de comparer tout les noeuds pour déterminer le chemin le plus court d'un noeud à un autre
+        for k in range(nbr_node):
+            #on verifie si on a déjà trouver le chemin le plus court de ce noeuds
+            #Si on a pas encore trouvé on calcule les distances et on les compares pour trouver le plus court chemins 
+            if result[k][1] == False:
+                distance = C[node][k]
+                distance_total = distance_start + distance
+                if distance_total < result[k][0]:
+                    result[k][0] = distance_total
+                if result[k][0] < minimum:
+                    minimum = result[k][0]
+                    node_next = k
+        
+        node = node_next
+        #On enregistre le plus court en le mettant en True
+        result[node][1] = True
+        distance_start = result[node][0]
 
-#fusion des lignes individuelles en matrice
-def Dijkstra(C: np.matrix):
-    result = list()
-    for i in range(len(C)):
+    return(result)
+
+#fusion des lignes individuelles en matrice 
+def dijkstra_matrix(matrix):
+    result = []
+    for i in range(len(matrix)):
         temp = []
-        dijk_line = dijkstraDist(C, i)
-        for j in range(len(C)):
+        dijk_line = dijkstra(matrix, i)
+        for j in range(len(matrix)):
             temp.append(int(dijk_line[j][0]))
         result.append(temp)
     return np.array(result)
