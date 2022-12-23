@@ -2,7 +2,7 @@ import numpy as np
 Inf = 1.e+12
 
 #fonction qui permet de calculer toutes les distances à partir d'un noeud de départ
-def dijkstra(C, start):
+def dijkstra_line(C, start):
     #On récupère le nombres de noeuds
     nbr_node = len(C[0])
     result = []
@@ -39,11 +39,11 @@ def dijkstra(C, start):
     return(result)
 
 #fusion des lignes individuelles en matrice 
-def dijkstra_matrix(matrix):
+def Dijkstra(matrix):
     result = []
     for i in range(len(matrix)):
         temp = []
-        dijk_line = dijkstra(matrix, i)
+        dijk_line = dijkstra_line(matrix, i)
         for j in range(len(matrix)):
             temp.append(int(dijk_line[j][0]))
         result.append(temp)
